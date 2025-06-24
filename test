@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MTurk ExternalQuestion Smoke Test</title>
+</head>
+<body>
+  <h3>MTurk Smoke Test</h3>
+  <p>This form will submit a hidden value back to MTurk.</p>
+
+  <form id="mturk_form" method="POST" action="${turkSubmitTo}/mturk/externalSubmit">
+    <!-- MTurk vars injected at runtime -->
+    <input type="hidden" name="assignmentId" value="${assignmentId}" />
+    <input type="hidden" name="hitId"        value="${hitId}"        />
+    <input type="hidden" name="workerId"     value="${workerId}"     />
+
+    <!-- our dummy measurement -->
+    <input type="hidden" name="dummy_px" value="123" />
+
+    <!-- disable submit in preview mode -->
+    <input
+      type="submit"
+      id="submitButton"
+      value="Submit to MTurk"
+      disabled
+    />
+  </form>
+
+  <script>
+    // Only enable the button once it’s a real assignment (not the preview)
+    if (assignmentId !== 'ASSIGNMENT_ID_NOT_AVAILABLE') {
+      document.getElementById('submitButton').disabled = false;
+    }
+  </script>
+</body>
+</html>
